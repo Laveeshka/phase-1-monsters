@@ -9,6 +9,7 @@ let page = 1;
 document.addEventListener("DOMContentLoaded", () => {
 
     getMonsters();
+    renderMonsterForm();
 });
 
 function getMonsters(){
@@ -33,4 +34,43 @@ function renderMonster(monsterData){
     monsterInfo.append(h4, h6, p);
     let monsterContainer = document.getElementById('monster-container');
     monsterContainer.appendChild(monsterInfo);
+}
+
+//Have a form to create a new monster above your list of monsters
+//Create input fileds for name, age, description
+//Have a 'Create Monster Button'
+function renderMonsterForm(){
+    let createMonsterContainer = document.getElementById("create-monster"); //locate the create monster div
+    let form = document.createElement("form");
+    form.classList.add("create-monster-form");
+
+    let nameInput = document.createElement("input");
+    nameInput.classList.add("input-text");
+    nameInput.type = "text";
+    nameInput.name = "name";
+    nameInput.value = "";
+    nameInput.placeholder = "Enter a monster's name..."
+    
+    let ageInput = document.createElement("input");
+    ageInput.classList.add("input-text");
+    ageInput.type = "text";
+    ageInput.name = "age";
+    ageInput.value = "";
+    ageInput.placeholder = "Enter a monster's age..."
+
+    let descriptionInput = document.createElement("input");
+    descriptionInput.classList.add("input-text");
+    descriptionInput.type = "text";
+    descriptionInput.name = "description";
+    descriptionInput.value = "";
+    descriptionInput.placeholder = "Enter a monster's description..."
+
+    let createMonsterBtn = document.createElement("input");
+    createMonsterBtn.type = "submit";
+    createMonsterBtn.name = "submit";
+    createMonsterBtn.value = "Create Monster Button";
+    createMonsterBtn.classList.add("submit");
+
+    form.append(nameInput, ageInput, descriptionInput, createMonsterBtn);
+    createMonsterContainer.appendChild(form);
 }
