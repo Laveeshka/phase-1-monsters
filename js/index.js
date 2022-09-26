@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     getMonsters();
     renderMonsterForm();
+    createMonster();
 });
 
 function getMonsters(){
@@ -73,4 +74,31 @@ function renderMonsterForm(){
 
     form.append(nameInput, ageInput, descriptionInput, createMonsterBtn);
     createMonsterContainer.appendChild(form);
+}
+
+function createMonster(){
+    let form = document.querySelector('.create-monster-form');
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const nameInput = document.querySelector('input[name="name"]');
+        const ageInput = document.querySelector('input[name="age"]');
+        const descriptionInput = document.querySelector('input[name="description"]');
+
+        let newMonster = {
+            "name": nameInput.value,
+            "age": parseInt(ageInput.value),
+            "description": descriptionInput.value
+        }
+
+        fetch(monsterUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(newMonster)
+        })
+            .then(res => res.json())
+            .then(monsterObj => console.log(monsterObj));
+    });
 }
