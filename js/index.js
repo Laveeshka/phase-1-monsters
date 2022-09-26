@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     getMonsters();
     renderMonsterForm();
     createMonster();
+    goToNextPage();
+    goToPreviousPage();
 });
 
 function getMonsters(){
@@ -18,6 +20,8 @@ function getMonsters(){
         .then(res => res.json())
         .then(monstersData => {
             console.log(monstersData);
+            let monsterContainer = document.getElementById('monster-container');
+            monsterContainer.innerHTML = '';
             monstersData.forEach(monsterData => renderMonster(monsterData));
         });
 }
@@ -100,5 +104,26 @@ function createMonster(){
         })
             .then(res => res.json())
             .then(monsterObj => console.log(monsterObj));
+    });
+}
+
+function goToNextPage(){
+    let nextBtn = document.getElementById("forward");
+    nextBtn.addEventListener("click", () => {
+        page++;
+        console.log(page);
+        getMonsters();
+    });
+}
+
+function goToPreviousPage(){
+    let previousBtn = document.getElementById("back");
+    previousBtn.addEventListener("click", () => {
+        page--;
+        console.log(page);
+        if (page > 0)
+            getMonsters();
+        else
+            alert("Ain't no monsters here");
     });
 }
